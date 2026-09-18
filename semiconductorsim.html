@@ -1,0 +1,1164 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Role of Semiconductor in Modern Electronics</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #eef3f8;
+    color: #172033;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 25px;
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+    color: #17324d;
+    font-size: 30px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #64748b;
+    margin: 8px 0 20px;
+    font-size: 16px;
+}
+
+/* BUTTONS */
+
+.controls {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+button {
+    padding: 12px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#forwardBtn {
+    background: #28a745;
+    color: white;
+}
+
+#reverseBtn {
+    background: #dc3545;
+    color: white;
+}
+
+#resetBtn {
+    background: #64748b;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+/* MAIN AREA */
+
+.main {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 18px;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 18px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.10);
+}
+
+/* SIMULATION */
+
+.simulation {
+    overflow: hidden;
+}
+
+svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* PARTICLES */
+
+.hole {
+    fill: #2563eb;
+}
+
+.electron {
+    fill: #111827;
+}
+
+.negativeIon {
+    fill: #ef4444;
+}
+
+.positiveIon {
+    fill: #f59e0b;
+}
+
+/* MOVING MAJORITY CARRIERS */
+
+.movingElectron {
+    animation: electronMove 1.4s linear infinite;
+}
+
+.movingHole {
+    animation: holeMove 1.4s linear infinite;
+}
+
+@keyframes electronMove {
+
+    0% {
+        transform: translateX(0);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-110px);
+        opacity: 0;
+    }
+}
+
+@keyframes holeMove {
+
+    0% {
+        transform: translateX(0);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(110px);
+        opacity: 0;
+    }
+}
+
+/* STATUS */
+
+.status {
+    text-align: center;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+    background: #e2e8f0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* EXPLANATION */
+
+.explanation {
+    margin-top: 12px;
+    padding: 14px;
+    background: #f1f5f9;
+    border-radius: 10px;
+    line-height: 1.55;
+}
+
+/* CONTROL PANEL */
+
+.info h2 {
+    margin-top: 0;
+    color: #17324d;
+}
+
+.infoBox {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-left: 5px solid #64748b;
+}
+
+.infoBox strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.value {
+    font-size: 21px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+input[type="range"] {
+    width: 100%;
+    cursor: pointer;
+}
+
+#voltageValue {
+    text-align: center;
+    font-size: 23px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+/* FOOTER */
+
+.footer {
+    text-align: center;
+    margin-top: 22px;
+    color: #475569;
+    font-weight: bold;
+    line-height: 1.6;
+}
+
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+.legend span {
+    padding: 4px 7px;
+}
+
+/* MOBILE */
+
+@media(max-width: 850px) {
+
+    .main {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+<h1>
+    Role of Semiconductor in Modern Electronics
+</h1>
+
+<div class="subtitle">
+    Interactive P-N Junction Diode Simulation
+</div>
+
+
+<!-- BUTTONS -->
+
+<div class="controls">
+
+    <button id="forwardBtn">
+        Forward Bias
+    </button>
+
+    <button id="reverseBtn">
+        Reverse Bias
+    </button>
+
+    <button id="resetBtn">
+        Reset
+    </button>
+
+</div>
+
+
+<div class="main">
+
+
+<!-- ========================= -->
+<!-- SIMULATION -->
+<!-- ========================= -->
+
+<div class="card simulation">
+
+<svg viewBox="0 0 800 520">
+
+
+<!-- BATTERY -->
+
+<line x1="90"
+      y1="180"
+      x2="90"
+      y2="340"
+      stroke="black"
+      stroke-width="8"/>
+
+<line x1="120"
+      y1="215"
+      x2="120"
+      y2="305"
+      stroke="black"
+      stroke-width="8"/>
+
+<text id="plus"
+      x="75"
+      y="165"
+      font-size="30"
+      font-weight="bold"
+      fill="green">
++
+</text>
+
+<text id="minus"
+      x="120"
+      y="355"
+      font-size="30"
+      font-weight="bold"
+      fill="red">
+−
+</text>
+
+<text x="65"
+      y="390"
+      font-size="17"
+      font-weight="bold">
+Battery
+</text>
+
+
+<!-- WIRES -->
+
+<line x1="90"
+      y1="180"
+      x2="280"
+      y2="180"
+      stroke="#475569"
+      stroke-width="5"/>
+
+<line x1="520"
+      y1="180"
+      x2="710"
+      y2="180"
+      stroke="#475569"
+      stroke-width="5"/>
+
+<line x1="710"
+      y1="180"
+      x2="710"
+      y2="350"
+      stroke="#475569"
+      stroke-width="5"/>
+
+<line x1="710"
+      y1="350"
+      x2="90"
+      y2="350"
+      stroke="#475569"
+      stroke-width="5"/>
+
+
+<!-- ========================= -->
+<!-- P-TYPE REGION -->
+<!-- ========================= -->
+
+<rect x="280"
+      y="120"
+      width="120"
+      height="130"
+      fill="#cfe5ff"
+      stroke="#2563eb"
+      stroke-width="3"/>
+
+<text x="340"
+      y="150"
+      text-anchor="middle"
+      font-size="22"
+      font-weight="bold"
+      fill="#2563eb">
+P-TYPE
+</text>
+
+
+<!-- HOLES -->
+
+<circle class="hole"
+        cx="305"
+        cy="185"
+        r="7"/>
+
+<circle class="hole"
+        cx="335"
+        cy="215"
+        r="7"/>
+
+<circle class="hole"
+        cx="365"
+        cy="180"
+        r="7"/>
+
+<circle class="hole"
+        cx="320"
+        cy="235"
+        r="7"/>
+
+<circle class="hole"
+        cx="375"
+        cy="225"
+        r="7"/>
+
+
+<!-- NEGATIVE ACCEPTOR IONS -->
+
+<text x="305"
+      y="175"
+      font-size="14"
+      fill="#dc2626">
+−
+</text>
+
+<text x="360"
+      y="245"
+      font-size="14"
+      fill="#dc2626">
+−
+</text>
+
+
+<!-- ========================= -->
+<!-- N-TYPE REGION -->
+<!-- ========================= -->
+
+<rect x="400"
+      y="120"
+      width="120"
+      height="130"
+      fill="#ffe9b3"
+      stroke="#d18b00"
+      stroke-width="3"/>
+
+<text x="460"
+      y="150"
+      text-anchor="middle"
+      font-size="22"
+      font-weight="bold"
+      fill="#a16207">
+N-TYPE
+</text>
+
+
+<!-- FREE ELECTRONS -->
+
+<circle class="electron"
+        cx="425"
+        cy="185"
+        r="7"/>
+
+<circle class="electron"
+        cx="455"
+        cy="215"
+        r="7"/>
+
+<circle class="electron"
+        cx="490"
+        cy="180"
+        r="7"/>
+
+<circle class="electron"
+        cx="440"
+        cy="235"
+        r="7"/>
+
+<circle class="electron"
+        cx="500"
+        cy="225"
+        r="7"/>
+
+
+<!-- POSITIVE DONOR IONS -->
+
+<text x="425"
+      y="175"
+      font-size="14"
+      fill="#d97706">
++
+</text>
+
+<text x="485"
+      y="245"
+      font-size="14"
+      fill="#d97706">
++
+</text>
+
+
+<!-- ========================= -->
+<!-- DEPLETION REGION -->
+<!-- ========================= -->
+
+<rect id="depletion"
+      x="390"
+      y="120"
+      width="20"
+      height="130"
+      fill="#94a3b8"
+      opacity="0.9"/>
+
+<text id="depletionText"
+      x="400"
+      y="275"
+      text-anchor="middle"
+      font-size="15"
+      font-weight="bold">
+Depletion Layer
+</text>
+
+
+<!-- ========================= -->
+<!-- MOVING CARRIERS -->
+<!-- ========================= -->
+
+<circle id="movingElectron"
+        class="electron movingElectron"
+        cx="505"
+        cy="180"
+        r="7"
+        opacity="0"/>
+
+<circle id="movingHole"
+        class="hole movingHole"
+        cx="295"
+        cy="215"
+        r="7"
+        opacity="0"/>
+
+
+<!-- ========================= -->
+<!-- LABELS -->
+<!-- ========================= -->
+
+<text x="340"
+      y="310"
+      text-anchor="middle"
+      font-size="15"
+      font-weight="bold"
+      fill="#2563eb">
+Holes = Majority Carriers
+</text>
+
+<text x="460"
+      y="330"
+      text-anchor="middle"
+      font-size="15"
+      font-weight="bold"
+      fill="#a16207">
+Electrons = Majority Carriers
+</text>
+
+
+<!-- ========================= -->
+<!-- CURRENT -->
+<!-- ========================= -->
+
+<text x="400"
+      y="385"
+      text-anchor="middle"
+      font-size="18"
+      font-weight="bold">
+Current
+</text>
+
+<text id="current"
+      x="400"
+      y="415"
+      text-anchor="middle"
+      font-size="25"
+      font-weight="bold">
+0 mA
+</text>
+
+
+<!-- ========================= -->
+<!-- ARROWS -->
+<!-- ========================= -->
+
+<text id="flowArrow"
+      x="400"
+      y="455"
+      text-anchor="middle"
+      font-size="22"
+      font-weight="bold">
+Select a bias
+</text>
+
+</svg>
+
+
+<!-- STATUS -->
+
+<div id="status"
+     class="status">
+
+Select Forward Bias or Reverse Bias
+
+</div>
+
+
+<!-- EXPLANATION -->
+
+<div id="explanation"
+     class="explanation">
+
+Choose a biasing condition to see what happens to the
+depletion layer, barrier potential, current and charge carriers.
+
+</div>
+
+
+<!-- LEGEND -->
+
+<div class="legend">
+
+<span>🔵 Holes</span>
+
+<span>⚫ Free electrons</span>
+
+<span>🔴 Negative ions</span>
+
+<span>🟠 Positive ions</span>
+
+<span>⬜ Depletion layer</span>
+
+</div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- INFORMATION PANEL -->
+<!-- ========================= -->
+
+<div class="card info">
+
+<h2>Adjust the Voltage</h2>
+
+
+<div class="infoBox">
+
+<strong>Applied Voltage</strong>
+
+<input
+    type="range"
+    id="voltage"
+    min="0"
+    max="10"
+    step="0.1"
+    value="0">
+
+<div id="voltageValue">
+0.0 V
+</div>
+
+</div>
+
+
+<div class="infoBox">
+
+<strong>Barrier Potential</strong>
+
+<div
+    id="barrier"
+    class="value">
+0.7 V
+</div>
+
+</div>
+
+
+<div class="infoBox">
+
+<strong>Depletion Layer Width</strong>
+
+<div
+    id="width"
+    class="value">
+Normal
+</div>
+
+</div>
+
+
+<div class="infoBox">
+
+<strong>Diode Condition</strong>
+
+<div
+    id="condition"
+    class="value">
+Not Selected
+</div>
+
+</div>
+
+
+<div class="infoBox">
+
+<strong>Resistance</strong>
+
+<div
+    id="resistance"
+    class="value">
+—
+</div>
+
+</div>
+
+
+<div class="infoBox">
+
+<strong>Charge Carriers</strong>
+
+<div id="carriers">
+
+Select a biasing condition.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+ROLE OF SEMICONDUCTOR IN MODERN ELECTRONICS<br>
+
+Class 12 | Section P2 | Group D<br>
+
+Dibas Patthak • Dreama Shakya • Pratik Raj Pandey
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   GET HTML ELEMENTS
+========================= */
+
+const forwardBtn =
+    document.getElementById("forwardBtn");
+
+const reverseBtn =
+    document.getElementById("reverseBtn");
+
+const resetBtn =
+    document.getElementById("resetBtn");
+
+const voltageSlider =
+    document.getElementById("voltage");
+
+const voltageValue =
+    document.getElementById("voltageValue");
+
+const barrier =
+    document.getElementById("barrier");
+
+const width =
+    document.getElementById("width");
+
+const condition =
+    document.getElementById("condition");
+
+const resistance =
+    document.getElementById("resistance");
+
+const carriers =
+    document.getElementById("carriers");
+
+const current =
+    document.getElementById("current");
+
+const status =
+    document.getElementById("status");
+
+const explanation =
+    document.getElementById("explanation");
+
+const depletion =
+    document.getElementById("depletion");
+
+const flowArrow =
+    document.getElementById("flowArrow");
+
+const movingElectron =
+    document.getElementById("movingElectron");
+
+const movingHole =
+    document.getElementById("movingHole");
+
+const plus =
+    document.getElementById("plus");
+
+const minus =
+    document.getElementById("minus");
+
+
+let mode = "none";
+
+
+/* =========================
+   FORWARD BIAS
+========================= */
+
+forwardBtn.addEventListener("click", function() {
+
+    mode = "forward";
+
+    updateSimulation();
+
+});
+
+
+/* =========================
+   REVERSE BIAS
+========================= */
+
+reverseBtn.addEventListener("click", function() {
+
+    mode = "reverse";
+
+    updateSimulation();
+
+});
+
+
+/* =========================
+   VOLTAGE SLIDER
+========================= */
+
+voltageSlider.addEventListener("input", function() {
+
+    updateSimulation();
+
+});
+
+
+/* =========================
+   RESET
+========================= */
+
+resetBtn.addEventListener("click", function() {
+
+    mode = "none";
+
+    voltageSlider.value = 0;
+
+    voltageValue.innerHTML = "0.0 V";
+
+    barrier.innerHTML = "0.7 V";
+
+    width.innerHTML = "Normal";
+
+    condition.innerHTML = "Not Selected";
+
+    resistance.innerHTML = "—";
+
+    carriers.innerHTML =
+        "Select a biasing condition.";
+
+    current.innerHTML = "0 mA";
+
+    status.innerHTML =
+        "Select Forward Bias or Reverse Bias";
+
+    status.style.background = "#e2e8f0";
+
+    status.style.color = "#172033";
+
+    explanation.innerHTML =
+        "Choose a biasing condition to see what happens " +
+        "to the depletion layer, barrier potential, current " +
+        "and charge carriers.";
+
+    depletion.setAttribute("x", "390");
+
+    depletion.setAttribute("width", "20");
+
+    flowArrow.innerHTML = "Select a bias";
+
+    movingElectron.style.opacity = "0";
+
+    movingHole.style.opacity = "0";
+
+});
+
+
+/* =========================
+   MAIN SIMULATION
+========================= */
+
+function updateSimulation() {
+
+    let voltage =
+        parseFloat(voltageSlider.value);
+
+    voltageValue.innerHTML =
+        voltage.toFixed(1) + " V";
+
+
+    /* =========================
+       FORWARD BIAS
+    ========================= */
+
+    if (mode === "forward") {
+
+        /*
+           As forward voltage increases,
+           depletion layer becomes narrower.
+        */
+
+        let depletionWidth =
+            Math.max(4, 35 - voltage * 3);
+
+        depletion.setAttribute(
+            "x",
+            400 - depletionWidth / 2
+        );
+
+        depletion.setAttribute(
+            "width",
+            depletionWidth
+        );
+
+
+        /* Barrier potential */
+
+        let barrierValue =
+            Math.max(
+                0.05,
+                0.7 - voltage * 0.05
+            );
+
+        barrier.innerHTML =
+            barrierValue.toFixed(2) + " V";
+
+
+        /* Current */
+
+        let currentValue = 0;
+
+        if (voltage >= 0.7) {
+
+            currentValue =
+                (voltage - 0.7) * 10;
+
+        }
+
+        current.innerHTML =
+            currentValue.toFixed(1) + " mA";
+
+
+        /* Other information */
+
+        if (voltage >= 0.7) {
+
+            width.innerHTML =
+                "Very Narrow";
+
+        } else {
+
+            width.innerHTML =
+                "Narrowing";
+
+        }
+
+        condition.innerHTML =
+            "CLOSED CIRCUIT";
+
+        resistance.innerHTML =
+            "Low — Forward Resistance";
+
+        carriers.innerHTML =
+            "Majority carriers:<br>" +
+            "• Holes in P-type<br>" +
+            "• Electrons in N-type";
+
+
+        status.innerHTML =
+            "🟢 FORWARD BIAS — Current Flows";
+
+        status.style.background =
+            "#dcfce7";
+
+        status.style.color =
+            "#166534";
+
+
+        explanation.innerHTML =
+            "<b>P-side → Positive (+)</b><br>" +
+            "<b>N-side → Negative (−)</b><br><br>" +
+
+            "The depletion layer becomes narrower and " +
+            "the barrier potential decreases. The diode " +
+            "offers low resistance and allows a high " +
+            "current to flow due to majority charge carriers.";
+
+
+        flowArrow.innerHTML =
+            "Holes → → →     ← ← ← Electrons";
+
+
+        movingElectron.style.opacity = "1";
+
+        movingHole.style.opacity = "1";
+
+
+        plus.innerHTML = "+";
+
+        minus.innerHTML = "−";
+
+    }
+
+
+    /* =========================
+       REVERSE BIAS
+    ========================= */
+
+    else if (mode === "reverse") {
+
+
+        /*
+           Reverse voltage increases
+           depletion layer width.
+        */
+
+        let depletionWidth =
+            Math.min(100, 25 + voltage * 7);
+
+        depletion.setAttribute(
+            "x",
+            400 - depletionWidth / 2
+        );
+
+        depletion.setAttribute(
+            "width",
+            depletionWidth
+        );
+
+
+        /* Barrier potential */
+
+        let barrierValue =
+            0.7 + voltage * 0.15;
+
+        barrier.innerHTML =
+            barrierValue.toFixed(2) + " V";
+
+
+        /* Leakage current */
+
+        let leakage =
+            Math.min(0.05, voltage * 0.005);
+
+        current.innerHTML =
+            leakage.toFixed(3) + " mA";
+
+
+        /* Other information */
+
+        width.innerHTML =
+            "Wide";
+
+        condition.innerHTML =
+            "OPEN CIRCUIT";
+
+        resistance.innerHTML =
+            "Very High — Reverse Resistance";
+
+        carriers.innerHTML =
+            "Minority carriers:<br>" +
+            "• Very small leakage current";
+
+
+        status.innerHTML =
+            "🔴 REVERSE BIAS — Current ≈ 0";
+
+        status.style.background =
+            "#fee2e2";
+
+        status.style.color =
+            "#991b1b";
+
+
+        explanation.innerHTML =
+            "<b>P-side → Negative (−)</b><br>" +
+            "<b>N-side → Positive (+)</b><br><br>" +
+
+            "The depletion layer becomes wider and " +
+            "the barrier potential increases. The diode " +
+            "offers very high resistance. Only a very " +
+            "small leakage current flows due to minority carriers.";
+
+
+        flowArrow.innerHTML =
+            "Very small leakage current";
+
+
+        movingElectron.style.opacity = "0";
+
+        movingHole.style.opacity = "0";
+
+
+        plus.innerHTML = "+";
+
+        minus.innerHTML = "−";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
+```
